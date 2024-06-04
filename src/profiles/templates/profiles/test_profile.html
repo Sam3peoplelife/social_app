@@ -8,8 +8,11 @@ test profile
 <p><b>My posts</b>: {{profile.get_my_posts}}</p>
 <p><b>My posts number</b>: {{profile.num_posts}}</p>
 <p><b>Following profiles</b>: {{profile.get_following}}</p>
+<p><b>Number of subscribes</b>: {{profile.following_count}}</p>
 <p><b>Following profiles list</b>: {{profile.get_following_users}}</p>
 <p><b>My subsribes</b>: {{profile.get_my_and_following_posts}}</p>
+<p><b>My subsribers</b>: {{profile.get_followers}}</p>
+<p><b>Number of my subsribers</b>: {{profile.followers_count}}</p>
 <p><b>You can know them</b>: {{profile.get_proposals_for_following}}</p>
 {% endblock content %}
 

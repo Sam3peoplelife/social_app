@@ -23,16 +23,19 @@ class Profile(models.Model):
     def num_posts(self):
         return self.post_set.all().count()
     
-    @property
     def get_following(self):
         return self.following.all()
     
+    @property
+    def following_count(self):
+        return self.get_following().count()
+    
     def get_following_users(self):
-        following_list = [p for p in self.get_following]
+        following_list = [p for p in self.get_following()]
         return following_list
     
     def get_my_and_following_posts(self):
-        users = [user for user in self.get_following]
+        users = [user for user in self.get_following()]
         posts = []
         qs = None
         for user in users:
@@ -48,9 +51,21 @@ class Profile(models.Model):
     
     def get_proposals_for_following(self):
         profiles = Profile.objects.all().exclude(user=self.user)
-        followers_list = [p for p in self.get_following]
+        followers_list = [p for p in self.get_following()]
         available = [p.user for p in profiles if p.user not in followers_list]
         random.shuffle(available)
         return available[:3]
+    
+    def get_followers(self):
+        qs = Profile.objects.all()
+        followers_list = []
+        for profile in qs:
+            if self.user in profile.get_following():
+                followers_list.append(profile)
+        return followers_list
+
+    @property
+    def followers_count(self):
+        return len(self.get_followers())
     
 
